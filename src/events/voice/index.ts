@@ -28,17 +28,23 @@ export default class Voice {
         if(!url) return message.reply("you need to submit a link to continue");
         this.player = await message.member?.voice.channel?.join();
         this.queue.push(url);
-        if(this.queue.length > 1) return;
+        if(this.queue.length > 1) {
+            message.reply("A new song was added.");
+            return
+        } 
         this.playMusic(message);
     }
 
-    private playMusic(message: CommandMessage) {
-        if(this.queue.length === 0) return message.reply("")
-        message.reply(`now playing ${this.queue[0]}`);
+    private playMusic(message?: CommandMessage) {
+        message?.reply(`now playing ${this.queue[0]}`);
         this.player?.play(ytdl(this.queue[0])).on('finish', () => {
             this.queue = this.queue.slice(1);
-            if(this.queue.length === 0) return this.leaveChannel();
-            this.playMusic(message);
+            if(this.queue.length === 0) {
+                message?.reply("I ended my playlist, bye! =)");
+                this.leaveChannel();
+                return
+            } 
+            this.playMusic();
         });
     }
 

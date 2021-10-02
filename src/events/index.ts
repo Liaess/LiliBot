@@ -25,6 +25,11 @@ export class App {
         this.message.deleteMessageCommand(message);
     }
 
+    @Command("help")
+    private helpCommand(message: CommandMessage) {
+        this.message.helpCommand(message);
+    }
+
     @CommandNotFound()
     private notFound(message: CommandMessage) {
         this.message.notFound(message)

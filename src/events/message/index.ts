@@ -20,4 +20,8 @@ export default class Message {
     public notFound(message: CommandMessage) {
         message.reply(`this command does not exist!`);
     }
+
+    public helpCommand(message: CommandMessage) {
+        // to@do
+    }
 }
