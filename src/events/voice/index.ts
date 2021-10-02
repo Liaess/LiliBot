@@ -43,17 +43,24 @@ export default class Voice {
     }
 
     public async skipCommand(message: CommandMessage) {
-        if(this.queue.length > 1) return this.queue.splice(1);
+        if(!this.player?.dispatcher) return;
+        if(this.queue.length > 1){
+            this.queue = this.queue.splice(1);
+            this.playMusic(message);
+            return
+        } 
         this.player?.dispatcher.end();
         this.clearQueue();
     }
 
     public async resumeCommand(message: CommandMessage) {
+        if(!this.player?.dispatcher) return;
         this.player?.dispatcher.resume();
-        message.reply("resuming song.");
+        message.reply("resumming song.");
     }
 
     public async pauseCommand(message: CommandMessage) {
+        if(!this.player?.dispatcher) return;
         this.player?.dispatcher.pause();
         message.reply("pausing song.");
     }
