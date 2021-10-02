@@ -1,5 +1,5 @@
 import "./setup";
-import "./client";
+import "./events";
 import { Client } from "@typeit/discord";
 
 async function start() {
