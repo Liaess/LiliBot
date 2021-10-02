@@ -47,4 +47,19 @@ export class App {
         this.voice.playSongCommand(message);
     }
 
+    @Command("skip")
+    private async skipCommand(message: CommandMessage) {
+        this.voice.skipCommand(message);
+    }
+
+    @Command("resume")
+    private async resumeCommand(message: CommandMessage) {
+        this.voice.resumeCommand(message);
+    }
+
+    @Command("pause")
+    private async pauseCommand(message: CommandMessage) {
+        this.voice.pauseCommand(message);
+    }
+
 }

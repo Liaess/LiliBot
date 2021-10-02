@@ -10,12 +10,17 @@ export default class Voice {
         this.queue = [];
     }
 
+    private clearQueue() {
+        this.queue = [];
+    }
+
     public async joinChannel(message: CommandMessage) {
         this.player = await message.member?.voice.channel?.join();
     }
 
     public async leaveChannel() {
         this.player?.disconnect();
+        this.clearQueue();
     }
 
     public async playSongCommand(message: CommandMessage) {
@@ -27,7 +32,7 @@ export default class Voice {
         this.playMusic(message);
     }
 
-    private async playMusic(message: CommandMessage) {
+    private playMusic(message: CommandMessage) {
         if(this.queue.length === 0) return message.reply("")
         message.reply(`now playing ${this.queue[0]}`);
         this.player?.play(ytdl(this.queue[0])).on('finish', () => {
@@ -35,6 +40,22 @@ export default class Voice {
             if(this.queue.length === 0) return this.leaveChannel();
             this.playMusic(message);
         });
+    }
+
+    public async skipCommand(message: CommandMessage) {
+        if(this.queue.length > 1) return this.queue.splice(1);
+        this.player?.dispatcher.end();
+        this.clearQueue();
+    }
+
+    public async resumeCommand(message: CommandMessage) {
+        this.player?.dispatcher.resume();
+        message.reply("resuming song.");
+    }
+
+    public async pauseCommand(message: CommandMessage) {
+        this.player?.dispatcher.pause();
+        message.reply("pausing song.");
     }
 
 }
