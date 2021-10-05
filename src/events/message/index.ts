@@ -22,6 +22,7 @@ export default class Message {
     }
 
     public helpCommand(message: CommandMessage) {
-        // to@do
+        const replyMessage = `hello theses are the following commands:\n\`\`\`Text: !hello, !delete "amount"\nVoice: !join, !leave, !play "url", !skip, !pause, !resume \`\`\``
+        message.reply(replyMessage);
     }
 }

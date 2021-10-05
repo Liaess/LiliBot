@@ -8,18 +8,20 @@
     "@typeit/discord": "^4.0.10",
     "discord.js": "^13.1.0",
     "dotenv": "^10.0.0",
+    "ffmpeg-static": "^4.4.0",
+    "reflect-metadata": "^0.1.13",
     "ytdl-core": "^4.9.1"
   },
   "devDependencies": {
     "@types/node": "^16.10.1",
-    "reflect-metadata": "^0.1.13",
     "ts-node": "^10.2.1",
     "typescript": "^4.4.3"
   },
   "scripts": {
-    "start": "npm run build && node ./dist/server.js",
+    "start": "node ./dist/server.js",
+    "dev": "npm run build && node ./dist/server.js",
     "clean": "rm -Rf ./dist",
-    "build": "npm run clean && tsc && cp ./.env ./dist/.env",
+    "build": "npm run clean && npx tsc -P ./tsconfig.json --outDir dist",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
